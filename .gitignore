@@ -1,0 +1,6 @@
+*.pyc
+*.pdf
+*.doc
+*.docx
+output/
+input/
