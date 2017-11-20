@@ -54,7 +54,6 @@ def parse(path):
                 for x in layout:
                     if (isinstance(x, LTTextBoxHorizontal)):
                         results.append(x.get_text())
-                    return results
             return results
 
 

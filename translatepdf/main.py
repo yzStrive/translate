@@ -1,5 +1,5 @@
 #coding:utf-8
-# pip install python-docx 
+# pip install python-docx
 # or from https://pypi.python.org/pypi/python-docx/0.8.6 download it then excute python setup.py install
 import translate_by_google
 import os
@@ -7,15 +7,15 @@ import sys
 import parsepdf
 from docx import Document
 import docx
-def main():
-    cur_path = os.path.split(os.path.realpath(sys.argv[0]))[0]
-    # 待翻译的pdf路径
-    path = cur_path+'/input/test.pdf';
+cur_path = os.path.split(os.path.realpath(sys.argv[0]))[0]
+
+
+def main(input_file_path,file_name=''):
     # 将pdf转换成str数组，结果中每一项为每一段
-    results = parsepdf.parse(path)
-    fp_e_c_document,fp_o_c_document = Document(),Document()
+    results = parsepdf.parse(input_file_path)
+    fp_e_c_document, fp_o_c_document = Document(), Document()
     # 每段的分隔符
-    flag='************************************'
+    flag = '************************************'
     for item in results:
         # 每一段是'\n'来连接的，需要处理下
         item = ''.join(item.split('\n'))
@@ -33,8 +33,8 @@ def main():
     fp_e_c_document.add_page_break()
     fp_o_c_document.add_page_break()
     # 输出word路径
-    fp_e_c_document.save(cur_path+'/output/ec.docx')
-    fp_o_c_document.save(cur_path+'/output/oc.docx')
+    fp_e_c_document.save(cur_path + '/output/' + file_name + '_ec.docx')
+    fp_o_c_document.save(cur_path + '/output/' + file_name + '_oc.docx')
 
 
 def handle_response_from_translate(cont):
@@ -52,4 +52,8 @@ def handle_response_from_translate(cont):
 
 
 if __name__ == '__main__':
-    main()
+    # 待翻译的pdf路径
+    input_suffix = '.pdf'
+    input_file_name = 'Spatial_dynamic_patterns_of_hand-foot-mouth_diseas'
+    path = cur_path + '/input/' + input_file_name + input_suffix
+    main(path,input_file_name)
